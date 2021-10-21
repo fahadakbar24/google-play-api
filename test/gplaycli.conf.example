@@ -1,0 +1,19 @@
+[credentials]
+gmail_address=[GMAIL EMAIL ADDRESS]
+gmail_password=[APP SPECIFIC PASSWORD]
+gsf_id=[AVAILABLE AFTER LOGIN USING USERNAME/PASSWORD]
+auth_sub_token=[AVAILABLE AFTER LOGIN USING USERNAME/PASSWORD]
+
+[locale]
+language=en_US
+timezone=UTC
+
+[database]
+db_url=mongodb://localhost:27017/
+db_name=play_store
+
+[settings]
+cat_download_limit=300
+#max apk size = 100MB
+max_apk_size=104857600
+storage_location=./play_store_apks
