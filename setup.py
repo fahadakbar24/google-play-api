@@ -45,4 +45,8 @@ setup(name='gpapi',
       cmdclass={'build_py': ProtobufBuilder},
       install_requires=['cryptography>=2.2',
                         'protobuf>=3.5.2',
-                        'requests'])
+                        'requests',
+                        'tqdm',
+                        'pymongo',
+                        'yachalk'
+                        ])

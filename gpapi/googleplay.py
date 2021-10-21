@@ -466,6 +466,26 @@ class GooglePlayAPI(object):
                         apps.append(utils.parseProtobufObj(a))
             return apps
 
+    def cluster_list(self, cat, ctr, next_cluster=None):
+        path = LIST_URL + "?c=3&cat={}".format(requests.utils.quote(cat))
+        addons = "&ctr={}".format(requests.utils.quote(ctr))
+
+        if next_cluster is None:
+            data = self.executeRequestApi2(path + addons)
+        else:
+            data = self.executeRequestApi2(FDFE + next_cluster + addons)
+
+        apps = []
+        for d in data.payload.listResponse.doc: # categories
+            if len(d.child) > 1:
+                print('WARNING: Unexpected number of sub-categories')
+            for c in d.child:  # sub-category
+                for a in c.child:  # app
+                    apps.append(utils.parseProtobufObj(a))
+
+        next_cluster = data.payload.listResponse.doc[0].child[0].containerMetadata.nextPageUrl
+        return apps, next_cluster
+
     def reviews(self, packageName, filterByDevice=False, sort=2,
                 nb_results=None, offset=None):
         """Browse reviews for an application
@@ -613,7 +633,7 @@ class GooglePlayAPI(object):
         params = {'ot': str(offerType),
                   'doc': packageName,
                   'vc': str(versionCode)}
-        self.log(packageName)
+        # self.log(packageName)
         response = requests.post(PURCHASE_URL, headers=headers,
                                  params=params, verify=ssl_verify,
                                  timeout=60,
