@@ -18,6 +18,12 @@ generating the `googleplay_pb2.py` file needed by the library (check the `setup.
 $ python setup.py build
 ```
 
+# Install
+
+```
+$ python setup.py install
+```
+
 # Usage
 
 Check scripts in `test` directory for more examples on how to use this API.
